@@ -68,21 +68,36 @@ class Instagrams {
 				data: new URLSearchParams({ ..._opts }),
 			}).catch((e) => e?.response);
 			const $ = Cheerio(data);
-			const _temp: any[] = [];
+			const post: any[] = [];
 			$("#result")
 				.find("a[target='_blank']")
 				.each((i: number, e: Element) => {
 					const url = $(e).attr("href");
-					_temp.push({ url });
+					post.push($(e).attr("href"));
 				});
-			if (_temp.length) {
-				return _temp;
-			} else {
-				throw new Error("Probably wrong url or private post/reel");
-			}
+		
+			const container = { status: true };
+		
+			container.result = post.map((v) => {
+				const url  = new URL(v);
+		
+			if (url.pathname.endsWith("mp4") && url.pathname.endsWith("webm")) {
+				return {
+                        		type: "video",
+                        		url: v,
+                    		};
+                	} else {
+                    		return {
+                        		type: "image",
+                        		url: v,
+                    		};
+			})
+		
+			return container;
+		
 		} catch (e) {
 			return {
-				error: true,
+				status: true,
 				message: String(e),
 			};
 		}
