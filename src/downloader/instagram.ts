@@ -97,7 +97,6 @@ class Instagrams {
 		
 		} catch (e) {
 			return {
-				status: true,
 				message: String(e),
 			};
 		}
