@@ -81,14 +81,14 @@ class Instagrams {
 			container.result = post.map((v) => {
 				const url  = new URL(v);
 		
-			if (url.pathname.endsWith("jpg") && url.pathname.endsWith("png") && url.pathname.endsWith("jpeg")) {
+			if (url.pathname.endsWith("mp4")) {
 				return {
-                        		type: "image",
+                        		type: "video",
                         		url: v,
                     		};
                 	} else {
                     		return {
-                        		type: "video",
+                        		type: "image",
                         		url: v,
                     		};
 			})
